@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to JPG Converter - MultiTools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="tool-container">
+            <div class="tool-header text-center">
+                <h1><i class="bi bi-file-image"></i> Image to JPG Converter</h1>
+                <p class="mb-0">Convert any image format to JPG</p>
+            </div>
+            <div class="tool-content">
+                <div class="back-to-home">
+                    <a href="../index.html" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                </div>
+                <div class="input-group-custom">
+                    <label for="imageInput" class="form-label">Select Image File</label>
+                    <input type="file" class="form-control" id="imageInput" accept="image/*">
+                </div>
+                <div class="input-group-custom">
+                    <label for="quality" class="form-label">Quality (1-100):</label>
+                    <input type="range" class="form-range" id="quality" min="1" max="100" value="90">
+                    <span id="qualityValue">90</span>
+                </div>
+                <div id="previewContainer" class="mb-3" style="display: none;">
+                    <img id="previewImage" class="img-fluid rounded" style="max-height: 300px;">
+                </div>
+                <button class="btn btn-primary btn-tool" onclick="convertToJPG()">Convert to JPG</button>
+                <div id="resultContainer" class="result-box" style="display: none;">
+                    <h5>Download Your JPG File:</h5>
+                    <a id="downloadLink" class="btn btn-success" download>Download JPG</a>
+                </div>
+                <div class="ad-space mt-4">
+                    <small>Advertisement</small>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        document.getElementById('quality').addEventListener('input', function(e) {
+            document.getElementById('qualityValue').textContent = e.target.value;
+        });
+
+        const imageInput = document.getElementById('imageInput');
+        imageInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImage').src = e.target.result;
+                    document.getElementById('previewContainer').style.display = 'block';
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        function convertToJPG() {
+            const file = imageInput.files[0];
+            if (!file) {
+                showAlert('Please select an image file', 'warning');
+                return;
+            }
+            
+            const quality = document.getElementById('quality').value / 100;
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            const img = new Image();
+            
+            img.onload = function() {
+                canvas.width = img.width;
+                canvas.height = img.height;
+                ctx.drawImage(img, 0, 0);
+                canvas.toBlob(function(blob) {
+                    const url = URL.createObjectURL(blob);
+                    document.getElementById('downloadLink').href = url;
+                    document.getElementById('downloadLink').download = file.name.replace(/\.[^/.]+$/, '') + '.jpg';
+                    document.getElementById('resultContainer').style.display = 'block';
+                    showAlert('Image converted successfully!', 'success');
+                }, 'image/jpeg', quality);
+            };
+            
+            img.src = URL.createObjectURL(file);
+        }
+    </script>
+</body>
+</html>
+

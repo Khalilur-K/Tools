@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Character Counter - MultiTools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="tool-container">
+            <div class="tool-header text-center">
+                <h1><i class="bi bi-123"></i> Character Counter</h1>
+                <p class="mb-0">Count characters with and without spaces</p>
+            </div>
+            <div class="tool-content">
+                <div class="back-to-home">
+                    <a href="../index.html" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                </div>
+                <div class="input-group-custom">
+                    <label for="textInput" class="form-label">Enter Text</label>
+                    <textarea class="form-control" id="textInput" rows="10" placeholder="Start typing..."></textarea>
+                </div>
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 class="text-primary" id="withSpaces">0</h3>
+                                <small class="text-muted">Characters (with spaces)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card text-center">
+                            <div class="card-body">
+                                <h3 class="text-primary" id="withoutSpaces">0</h3>
+                                <small class="text-muted">Characters (without spaces)</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ad-space mt-4">
+                    <small>Advertisement</small>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        document.getElementById('textInput').addEventListener('input', function() {
+            const text = this.value;
+            document.getElementById('withSpaces').textContent = text.length;
+            document.getElementById('withoutSpaces').textContent = text.replace(/\s/g, '').length;
+        });
+    </script>
+</body>
+</html>
+

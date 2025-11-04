@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator - MultiTools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="tool-container">
+            <div class="tool-header text-center">
+                <h1><i class="bi bi-calendar-event"></i> Age Calculator</h1>
+                <p class="mb-0">Calculate age from birthdate</p>
+            </div>
+            <div class="tool-content">
+                <div class="back-to-home">
+                    <a href="../index.html" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                </div>
+                <div class="input-group-custom">
+                    <label for="birthdate" class="form-label">Date of Birth</label>
+                    <input type="date" class="form-control" id="birthdate">
+                </div>
+                <button class="btn btn-primary btn-tool" onclick="calculateAge()">Calculate Age</button>
+                <div id="resultContainer" class="result-box mt-4" style="display: none;">
+                    <h5>Your Age:</h5>
+                    <div class="row g-3 text-center">
+                        <div class="col-md-3">
+                            <h3 class="text-primary" id="years">0</h3>
+                            <small class="text-muted">Years</small>
+                        </div>
+                        <div class="col-md-3">
+                            <h3 class="text-primary" id="months">0</h3>
+                            <small class="text-muted">Months</small>
+                        </div>
+                        <div class="col-md-3">
+                            <h3 class="text-primary" id="days">0</h3>
+                            <small class="text-muted">Days</small>
+                        </div>
+                        <div class="col-md-3">
+                            <h3 class="text-primary" id="totalDays">0</h3>
+                            <small class="text-muted">Total Days</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="ad-space mt-4">
+                    <small>Advertisement</small>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        function calculateAge() {
+            const birthdate = document.getElementById('birthdate').value;
+            if (!birthdate) {
+                showAlert('Please select your birthdate', 'warning');
+                return;
+            }
+            
+            const birth = new Date(birthdate);
+            const today = new Date();
+            
+            if (birth > today) {
+                showAlert('Birthdate cannot be in the future', 'warning');
+                return;
+            }
+            
+            let years = today.getFullYear() - birth.getFullYear();
+            let months = today.getMonth() - birth.getMonth();
+            let days = today.getDate() - birth.getDate();
+            
+            if (days < 0) {
+                months--;
+                const lastMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+                days += lastMonth.getDate();
+            }
+            
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+            
+            const totalDays = Math.floor((today - birth) / (1000 * 60 * 60 * 24));
+            
+            document.getElementById('years').textContent = years;
+            document.getElementById('months').textContent = months;
+            document.getElementById('days').textContent = days;
+            document.getElementById('totalDays').textContent = totalDays;
+            
+            document.getElementById('resultContainer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+

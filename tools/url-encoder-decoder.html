@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URL Encoder/Decoder - MultiTools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="tool-container">
+            <div class="tool-header text-center">
+                <h1><i class="bi bi-link-45deg"></i> URL Encoder/Decoder</h1>
+                <p class="mb-0">Encode or decode URL strings</p>
+            </div>
+            <div class="tool-content">
+                <div class="back-to-home">
+                    <a href="../index.html" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                </div>
+                <div class="input-group-custom">
+                    <label for="input" class="form-label">Enter URL or Encoded String</label>
+                    <textarea class="form-control font-monospace" id="input" rows="5"></textarea>
+                </div>
+                <div class="d-flex gap-2 mb-3">
+                    <button class="btn btn-primary" onclick="encode()">Encode</button>
+                    <button class="btn btn-success" onclick="decode()">Decode</button>
+                    <button class="btn btn-secondary" onclick="copyToClipboard(document.getElementById('output').value, 'copyBtn')" id="copyBtn">Copy</button>
+                </div>
+                <div class="result-box">
+                    <label for="output" class="form-label">Result</label>
+                    <textarea class="form-control font-monospace" id="output" rows="5" readonly></textarea>
+                </div>
+                <div class="ad-space mt-4">
+                    <small>Advertisement</small>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        function encode() {
+            const input = document.getElementById('input').value;
+            document.getElementById('output').value = encodeURIComponent(input);
+        }
+        function decode() {
+            try {
+                const input = document.getElementById('input').value;
+                document.getElementById('output').value = decodeURIComponent(input);
+            } catch(e) {
+                showAlert('Invalid encoded string', 'danger');
+            }
+        }
+    </script>
+</body>
+</html>
+

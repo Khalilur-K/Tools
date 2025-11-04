@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Case Converter - MultiTools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="tool-container">
+            <div class="tool-header text-center">
+                <h1><i class="bi bi-type"></i> Case Converter</h1>
+                <p class="mb-0">Convert text to uppercase, lowercase, title case, and more</p>
+            </div>
+            <div class="tool-content">
+                <div class="back-to-home">
+                    <a href="../index.html" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                </div>
+                <div class="input-group-custom">
+                    <label for="textInput" class="form-label">Enter Text</label>
+                    <textarea class="form-control" id="textInput" rows="8" placeholder="Enter text to convert..."></textarea>
+                </div>
+                <div class="d-flex flex-wrap gap-2 mb-3">
+                    <button class="btn btn-primary" onclick="convertCase('uppercase')">UPPERCASE</button>
+                    <button class="btn btn-primary" onclick="convertCase('lowercase')">lowercase</button>
+                    <button class="btn btn-primary" onclick="convertCase('title')">Title Case</button>
+                    <button class="btn btn-primary" onclick="convertCase('sentence')">Sentence case</button>
+                    <button class="btn btn-primary" onclick="convertCase('camel')">camelCase</button>
+                    <button class="btn btn-primary" onclick="convertCase('pascal')">PascalCase</button>
+                    <button class="btn btn-primary" onclick="convertCase('snake')">snake_case</button>
+                    <button class="btn btn-primary" onclick="convertCase('kebab')">kebab-case</button>
+                </div>
+                <div class="result-box">
+                    <label for="output" class="form-label">Converted Text</label>
+                    <textarea class="form-control" id="output" rows="8" readonly></textarea>
+                    <button class="btn btn-success mt-2" onclick="copyToClipboard(document.getElementById('output').value, 'copyBtn')" id="copyBtn">Copy</button>
+                </div>
+                <div class="ad-space mt-4">
+                    <small>Advertisement</small>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        function convertCase(type) {
+            const text = document.getElementById('textInput').value;
+            if (!text.trim()) {
+                showAlert('Please enter some text', 'warning');
+                return;
+            }
+            
+            let result = '';
+            switch(type) {
+                case 'uppercase':
+                    result = text.toUpperCase();
+                    break;
+                case 'lowercase':
+                    result = text.toLowerCase();
+                    break;
+                case 'title':
+                    result = text.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+                    break;
+                case 'sentence':
+                    result = text.toLowerCase().replace(/(^\w{1}|\.\s*\w{1})/gi, l => l.toUpperCase());
+                    break;
+                case 'camel':
+                    result = text.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase());
+                    break;
+                case 'pascal':
+                    result = text.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (m, chr) => chr.toUpperCase()).replace(/^./, chr => chr.toUpperCase());
+                    break;
+                case 'snake':
+                    result = text.toLowerCase().replace(/\s+/g, '_');
+                    break;
+                case 'kebab':
+                    result = text.toLowerCase().replace(/\s+/g, '-');
+                    break;
+            }
+            
+            document.getElementById('output').value = result;
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flip a Coin - MultiTools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="tool-container">
+            <div class="tool-header text-center">
+                <h1><i class="bi bi-coin"></i> Flip a Coin</h1>
+                <p class="mb-0">Flip a virtual coin</p>
+            </div>
+            <div class="tool-content">
+                <div class="back-to-home">
+                    <a href="../index.html" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                </div>
+                <div class="text-center">
+                    <div id="coin" class="mb-4" style="font-size: 150px; cursor: pointer;" onclick="flipCoin()">🪙</div>
+                    <button class="btn btn-primary btn-lg btn-tool" onclick="flipCoin()">Flip Coin</button>
+                    <div id="result" class="result-box mt-4" style="display: none;">
+                        <h2 id="resultText"></h2>
+                        <p class="text-muted">Total flips: <span id="totalFlips">0</span></p>
+                        <p class="text-muted">Heads: <span id="headsCount">0</span> | Tails: <span id="tailsCount">0</span></p>
+                    </div>
+                </div>
+                <div class="ad-space mt-4">
+                    <small>Advertisement</small>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        let totalFlips = 0, headsCount = 0, tailsCount = 0;
+        function flipCoin() {
+            const coin = document.getElementById('coin');
+            coin.style.transition = 'transform 0.3s';
+            coin.style.transform = 'rotateY(180deg)';
+            setTimeout(() => {
+                const result = Math.random() < 0.5 ? 'Heads' : 'Tails';
+                if (result === 'Heads') headsCount++; else tailsCount++;
+                totalFlips++;
+                document.getElementById('resultText').textContent = result + '!';
+                document.getElementById('totalFlips').textContent = totalFlips;
+                document.getElementById('headsCount').textContent = headsCount;
+                document.getElementById('tailsCount').textContent = tailsCount;
+                document.getElementById('result').style.display = 'block';
+                coin.style.transform = 'rotateY(0deg)';
+            }, 300);
+        }
+    </script>
+</body>
+</html>
+

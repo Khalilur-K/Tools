@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator - MultiTools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="tool-container">
+            <div class="tool-header text-center">
+                <h1><i class="bi bi-heart-pulse"></i> BMI Calculator</h1>
+                <p class="mb-0">Calculate Body Mass Index</p>
+            </div>
+            <div class="tool-content">
+                <div class="back-to-home">
+                    <a href="../index.html" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                </div>
+                <div class="row g-3 mb-3">
+                    <div class="col-md-6">
+                        <label for="weight" class="form-label">Weight (kg)</label>
+                        <input type="number" class="form-control" id="weight" placeholder="Enter weight" step="0.1">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="height" class="form-label">Height (cm)</label>
+                        <input type="number" class="form-control" id="height" placeholder="Enter height" step="0.1">
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-tool" onclick="calculateBMI()">Calculate BMI</button>
+                <div id="resultContainer" class="result-box mt-4" style="display: none;">
+                    <h5>Your BMI Result:</h5>
+                    <h2 class="text-primary" id="bmiValue"></h2>
+                    <p id="bmiCategory" class="fw-bold"></p>
+                    <div class="progress mb-3" style="height: 30px;">
+                        <div id="bmiProgress" class="progress-bar" role="progressbar" style="width: 0%"></div>
+                    </div>
+                    <small class="text-muted">
+                        <strong>BMI Categories:</strong><br>
+                        Underweight: &lt; 18.5<br>
+                        Normal weight: 18.5 - 24.9<br>
+                        Overweight: 25 - 29.9<br>
+                        Obesity: ≥ 30
+                    </small>
+                </div>
+                <div class="ad-space mt-4">
+                    <small>Advertisement</small>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const height = parseFloat(document.getElementById('height').value);
+            
+            if (!weight || !height || weight <= 0 || height <= 0) {
+                showAlert('Please enter valid weight and height', 'warning');
+                return;
+            }
+            
+            const heightInMeters = height / 100;
+            const bmi = weight / (heightInMeters * heightInMeters);
+            const bmiRounded = bmi.toFixed(1);
+            
+            let category = '';
+            let color = '';
+            
+            if (bmi < 18.5) {
+                category = 'Underweight';
+                color = 'bg-info';
+            } else if (bmi < 25) {
+                category = 'Normal weight';
+                color = 'bg-success';
+            } else if (bmi < 30) {
+                category = 'Overweight';
+                color = 'bg-warning';
+            } else {
+                category = 'Obesity';
+                color = 'bg-danger';
+            }
+            
+            document.getElementById('bmiValue').textContent = bmiRounded;
+            document.getElementById('bmiCategory').textContent = category;
+            document.getElementById('bmiCategory').className = 'fw-bold text-' + color.replace('bg-', '');
+            
+            const progressBar = document.getElementById('bmiProgress');
+            progressBar.className = 'progress-bar ' + color;
+            progressBar.style.width = Math.min((bmi / 40) * 100, 100) + '%';
+            progressBar.textContent = bmiRounded;
+            
+            document.getElementById('resultContainer').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
+

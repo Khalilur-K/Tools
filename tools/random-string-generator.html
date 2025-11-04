@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random String Generator - MultiTools</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+</head>
+<body>
+    <main>
+        <div class="tool-container">
+            <div class="tool-header text-center">
+                <h1><i class="bi bi-shuffle"></i> Random String Generator</h1>
+                <p class="mb-0">Generate random strings</p>
+            </div>
+            <div class="tool-content">
+                <div class="back-to-home">
+                    <a href="../index.html" class="btn btn-outline-primary"><i class="bi bi-arrow-left"></i> Back to Home</a>
+                </div>
+                <div class="input-group-custom">
+                    <label for="length" class="form-label">String Length</label>
+                    <input type="range" class="form-range" id="length" min="1" max="100" value="10">
+                    <span id="lengthValue">10</span> characters
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="includeUppercase" checked>
+                    <label class="form-check-label" for="includeUppercase">Include Uppercase (A-Z)</label>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="includeLowercase" checked>
+                    <label class="form-check-label" for="includeLowercase">Include Lowercase (a-z)</label>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="includeNumbers">
+                    <label class="form-check-label" for="includeNumbers">Include Numbers (0-9)</label>
+                </div>
+                <div class="form-check mb-3">
+                    <input class="form-check-input" type="checkbox" id="includeSymbols">
+                    <label class="form-check-label" for="includeSymbols">Include Symbols</label>
+                </div>
+                <button class="btn btn-primary btn-tool" onclick="generateString()">Generate</button>
+                <div class="result-box mt-4">
+                    <label for="output" class="form-label">Generated String</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control font-monospace" id="output" readonly>
+                        <button class="btn btn-success" onclick="copyToClipboard(document.getElementById('output').value, 'copyBtn')" id="copyBtn">Copy</button>
+                    </div>
+                </div>
+                <div class="ad-space mt-4">
+                    <small>Advertisement</small>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="../js/main.js"></script>
+    <script>
+        document.getElementById('length').addEventListener('input', function(e) {
+            document.getElementById('lengthValue').textContent = e.target.value;
+        });
+        function generateString() {
+            const length = parseInt(document.getElementById('length').value);
+            let charset = '';
+            if (document.getElementById('includeUppercase').checked) charset += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            if (document.getElementById('includeLowercase').checked) charset += 'abcdefghijklmnopqrstuvwxyz';
+            if (document.getElementById('includeNumbers').checked) charset += '0123456789';
+            if (document.getElementById('includeSymbols').checked) charset += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+            if (!charset) {
+                showAlert('Please select at least one character type', 'warning');
+                return;
+            }
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += charset.charAt(Math.floor(Math.random() * charset.length));
+            }
+            document.getElementById('output').value = result;
+        }
+    </script>
+</body>
+</html>
+
