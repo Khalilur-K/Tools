@@ -3,21 +3,6 @@ const fs = require('fs');
 const path = require('path');
 
 const tools = [
-    {id: 'image-compressor', name: 'Image Compressor', desc: 'Compress images to reduce file size', icon: 'bi-compress'},
-    {id: 'image-cropper', name: 'Image Cropper', desc: 'Crop images to desired dimensions', icon: 'bi-crop'},
-    {id: 'image-to-base64', name: 'Image to Base64', desc: 'Convert images to Base64 string', icon: 'bi-code-square'},
-    {id: 'webp-to-png', name: 'WebP to PNG', desc: 'Convert WebP images to PNG', icon: 'bi-image-fill'},
-    {id: 'gif-maker', name: 'GIF Maker', desc: 'Create animated GIFs from images', icon: 'bi-play-circle'},
-    {id: 'screenshot-to-pdf', name: 'Screenshot to PDF', desc: 'Convert screenshots to PDF format', icon: 'bi-file-pdf'},
-    {id: 'meta-tag-generator', name: 'Meta Tag Generator', desc: 'Generate meta tags for SEO', icon: 'bi-tags'},
-    {id: 'keyword-density-checker', name: 'Keyword Density Checker', desc: 'Check keyword density in your content', icon: 'bi-search'},
-    {id: 'sitemap-generator', name: 'Sitemap Generator', desc: 'Generate XML sitemap for your website', icon: 'bi-diagram-3'},
-    {id: 'robots-txt-generator', name: 'Robots.txt Generator', desc: 'Generate robots.txt file', icon: 'bi-robot'},
-    {id: 'google-index-checker', name: 'Google Index Checker', desc: 'Check if URL is indexed in Google', icon: 'bi-google'},
-    {id: 'domain-authority-checker', name: 'Domain Authority Checker', desc: 'Check domain authority score', icon: 'bi-bar-chart'},
-    {id: 'backlink-checker', name: 'Backlink Checker', desc: 'Check backlinks for any URL', icon: 'bi-link-45deg'},
-    {id: 'page-speed-checker', name: 'Page Speed Checker', desc: 'Check website page speed', icon: 'bi-speedometer2'},
-    {id: 'xml-sitemap-validator', name: 'XML Sitemap Validator', desc: 'Validate XML sitemap format', icon: 'bi-check-circle'},
     {id: 'mobile-friendly-test', name: 'Mobile-Friendly Test', desc: 'Test if website is mobile-friendly', icon: 'bi-phone'},
     {id: 'character-counter', name: 'Character Counter', desc: 'Count characters with and without spaces', icon: 'bi-123'},
     {id: 'plagiarism-checker', name: 'Plagiarism Checker', desc: 'Check text for plagiarism', icon: 'bi-shield-check'},
@@ -162,4 +147,5 @@ tools.forEach(tool => {
 });
 
 console.log(`Created ${created} new tool files. Total tools: ${tools.length}`);
+
 
