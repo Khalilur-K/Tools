@@ -5,13 +5,7 @@ Script to generate all tool HTML files
 
 tools = [
     # Image Tools (1-10)
-    ("image-resizer", "Image Resizer", "Resize images to any dimensions", "image"),
-    ("image-compressor", "Image Compressor", "Compress images to reduce file size", "image"),
-    ("image-cropper", "Image Cropper", "Crop images to desired dimensions", "image"),
-    ("image-to-base64", "Image to Base64", "Convert images to Base64 string", "image"),
-    ("webp-to-png", "WebP to PNG", "Convert WebP images to PNG", "image"),
-    ("gif-maker", "GIF Maker", "Create animated GIFs from images", "image"),
-    ("screenshot-to-pdf", "Screenshot to PDF", "Convert screenshots to PDF format", "image"),
+    ("image-resizer", "Image Resizer", "Resize images to any dimensions", "image")
     
     # SEO Tools (11-20)
     ("meta-tag-generator", "Meta Tag Generator", "Generate meta tags for SEO", "seo"),
@@ -177,4 +171,5 @@ for filename, title, description, category in tools:
     print(f"Generated: {filename}.html")
 
 print(f"\nGenerated {len(tools)} tool files!")
+
 
